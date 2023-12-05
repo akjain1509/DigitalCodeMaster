@@ -18,7 +18,7 @@ export const Icons = {
   back: require('../assets/back.png'),
 };
 export const Colors = {
-  primary: '#2AAA8A',
+  primary: '#ff7f11',
   black: '#000',
   white: '#fff',
   red: 'red',

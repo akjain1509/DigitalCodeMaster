@@ -6,6 +6,7 @@ import {
   Modal,
   TouchableOpacity,
   StyleSheet,
+  Image,
 } from 'react-native';
 import {Colors, Layout} from '../utilities/constant';
 import AppHeader from '../components/appHeader';
@@ -15,21 +16,36 @@ const NotificationScreen = () => {
   const [selectedNotification, setSelectedNotification] = useState(null);
 
   const notifications = [
-    {id: '1', message: 'You receive a joy', desc: ''},
-    {id: '2', message: 'Notification 2 content'},
-    // Add more notifications as needed
+    {
+      id: '1',
+      message: 'You receive a joy',
+      image: require('../assets/modal.png'),
+    },
+    {
+      id: '2',
+      message: 'You receive a joy',
+      image: require('../assets/modal.png'),
+    },
   ];
 
   const renderItem = ({item}) => {
     return (
-      <TouchableOpacity
-        style={styles.notificationItem}
-        onPress={() => {
-          setSelectedNotification(item);
-          setModalVisible(true);
-        }}>
+      <View style={styles.notificationItem}>
         <Text>{item.message}</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            backgroundColor: '#ff7f11',
+            paddingVertical: '2%',
+            paddingHorizontal: '3%',
+            borderRadius: 10,
+          }}
+          onPress={() => {
+            setSelectedNotification(item);
+            setModalVisible(true);
+          }}>
+          <Text style={{color: Colors.white}}>View</Text>
+        </TouchableOpacity>
+      </View>
     );
   };
 
@@ -52,14 +68,24 @@ const NotificationScreen = () => {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text>{selectedNotification?.message}</Text>
-
             <TouchableOpacity
+              style={{alignItems: 'flex-end'}}
               onPress={() => {
                 setModalVisible(!modalVisible);
               }}>
-              <Text>Close</Text>
+              <Text
+                style={{fontSize: 20, color: Colors.black, fontWeight: 'bold'}}>
+                X
+              </Text>
             </TouchableOpacity>
+            <Image
+              source={selectedNotification?.image}
+              style={{
+                height: Layout.height * 0.8,
+                width: Layout.width * 0.9,
+                borderRadius: 5,
+              }}
+            />
           </View>
         </View>
       </Modal>
@@ -71,9 +97,11 @@ export default NotificationScreen;
 
 const styles = StyleSheet.create({
   notificationItem: {
-    padding: 20,
+    padding: '4%',
     backgroundColor: '#DEF6FB',
     margin: '2%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   centeredView: {
     flex: 1,
@@ -92,36 +120,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    // height: height * 0.4,
-    // width: width * 0.8,
-    // flex: 1 / 5,
     padding: '3%',
-    // gap: 4,
-  },
-  modalText: {
-    // borderBottomColor: colors.black,
-    // borderBottomWidth: 1,
-    width: Layout.width * 0.65,
-    alignSelf: 'center',
-    borderWidth: 1,
-    borderRadius: 4,
-    borderColor: Colors.grey,
-    padding: '1%',
-    // marginTop: '3%',
-    color: Colors.black,
-    fontFamily: 'LucidaBright',
-  },
-  button: {
-    borderRadius: 20,
-    padding: '1%',
-    elevation: 2,
-  },
-  textStyle: {
-    color: Colors.white,
-    fontWeight: '600',
-    textAlign: 'center',
-    fontFamily: 'LucidaBright',
-    fontSize: 14,
-    textTransform: 'uppercase',
   },
 });
